@@ -4,23 +4,27 @@ pygame.init()
 win = pygame.display.set_mode((500, 300))
 pygame.display.set_caption("First Game")
 
-x = 50
-y = 50
-width = 10
-height = 15
-vel = 3
-
-isJump = False
-jumpCount = 10
-
 run = True
 
-while run:
+class Meep:
+    def __init__(self, pos, size, vel):
+        self.pos = pos
+        self.size = size
+        self.vel = vel
+
+    def show(self):
+        pygame.draw.rect(win, (255,0,0), shape)
+
+    def moveLeft(self):
+        self.pos[0] - vel
+
+    def moveRight(self):
+        self.pos[0] + vel
+
+def playerCommands(keys):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-
-    keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT] and x > vel:
         x -= vel
@@ -28,19 +32,16 @@ while run:
     if keys[pygame.K_RIGHT] and x < 500 - vel - width:
         x += vel
 
-    if not(isJump):
-        if keys[pygame.K_SPACE]:
-            isJump = True
-    else:
-        if jumpCount >= -10:
-            y -= (jumpCount * abs(jumpCount)) * 0.5
-            jumpCount -= 1
-        else:
-            jumpCount = 10
-            isJump = False
+## main method
+while run:
+
+    keys = pygame.key.get_pressed()
+
+    playerCommands(keys)
 
     win.fill((0,0,0))
-    pygame.draw.rect(win, (255,0,0), (x, y, width, height))
+    shape = (x, y, width, height)
     pygame.display.update()
 
 pygame.quit()
+
